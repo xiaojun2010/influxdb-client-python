@@ -12,6 +12,10 @@ from reactivex import operators as ops
 
 from influxdb_client import Point, InfluxDBClient, WriteOptions
 
+token = "3WIIDnbDDMdafmRvHDuwVm5rzd1aq0QJauw65xVj2Gh0WDwT4VjjMMWSfEGTHYlcmnN2O18L7fytGu9Cb7IO7Q=="
+org = "mayInfluxDB"
+# "QATeam"
+url = "http://localhost:8086"
 
 def parse_row(row: OrderedDict):
     """Parse row of CSV file into Point with structure:
@@ -60,7 +64,7 @@ data = rx \
     .from_iterable(DictReader(open('vix-daily.csv', 'r'))) \
     .pipe(ops.map(lambda row: parse_row(row)))
 
-with InfluxDBClient(url="http://localhost:8086", token="my-token", org="my-org", debug=True) as client:
+with InfluxDBClient(url="http://localhost:8086", token=token, org=org ) as client:
 
     """
     Create client that writes data in batches with 50_000 items.
